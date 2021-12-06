@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/jpg" href="favicon.ico" />
+    <script src="main.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>Date API</title>
+  </head>
+  <body>
+    <h1>Date Time API</h1>
+    <p>Please enter two dates and find the number of:</p>
+    <ul>
+      <li>Days between them</li>
+      <li>Weekdays between them</li>
+      <li>Complete weeks between them</li>
+    </ul>
+    <hr />
+    <div class="date-one-container">
+      <label for="dateOne">Date #1: </label>
+      <input type="datetime-local" name="dateOne" id="dateOne" />
+      <p>Please choose a timezone:</p>
+      <select id="timezoneOne" name="timezoneOne">
+        <option value="Z">GMT+00:00</option>
+        <option value="+01:00">GMT+1:00</option>
+        <option value="+02:00">GMT+2:00</option>
+        <option value="+03:00">GMT+3:00</option>
+        <option value="+03:30">GMT+3:30</option>
+        <option value="+04:00">GMT+4:00</option>
+        <option value="+05:00">GMT+5:00</option>
+        <option value="+05:30">GMT+5:30</option>
+        <option value="+06:00">GMT+6:00</option>
+        <option value="+07:00">GMT+7:00</option>
+        <option value="+08:00">GMT+8:00</option>
+        <option value="+09:00">GMT+9:00</option>
+        <option value="+09:30">GMT+9:30</option>
+        <option value="+10:00">GMT+10:00</option>
+        <option value="+10:30">GMT+10:30</option>
+        <option value="+11:00">GMT+11:00</option>
+        <option value="+12:00">GMT+12:00</option>
+        <option value="-11:00">GMT-11:00</option>
+        <option value="-10:00">GMT-10:00</option>
+        <option value="-09:00">GMT-9:00</option>
+        <option value="-08:00">GMT-8:00</option>
+        <option value="-07:00">GMT-7:00</option>
+        <option value="-06:00">GMT-6:00</option>
+        <option value="-05:00">GMT-5:00</option>
+        <option value="-04:00">GMT-4:00</option>
+        <option value="-03:30">GMT-3:30</option>
+        <option value="-03:00">GMT-3:00</option>
+        <option value="-01:00">GMT-1:00</option>
+      </select>
+    </div>
+    <br />
+    <hr />
+    <div class="date-two-container">
+      <label for="dateTwo">Date #2: </label>
+      <input type="datetime-local" name="dateTwo" id="dateTwo" />
+      <p>Please choose a timezone:</p>
+      <select id="timezoneTwo" name="timezoneTwo">
+        <option value="Z">GMT+00:00</option>
+        <option value="+01:00">GMT+1:00</option>
+        <option value="+02:00">GMT+2:00</option>
+        <option value="+03:00">GMT+3:00</option>
+        <option value="+03:30">GMT+3:30</option>
+        <option value="+04:00">GMT+4:00</option>
+        <option value="+05:00">GMT+5:00</option>
+        <option value="+05:30">GMT+5:30</option>
+        <option value="+06:00">GMT+6:00</option>
+        <option value="+07:00">GMT+7:00</option>
+        <option value="+08:00">GMT+8:00</option>
+        <option value="+09:00">GMT+9:00</option>
+        <option value="+09:30">GMT+9:30</option>
+        <option value="+10:00">GMT+10:00</option>
+        <option value="+10:30">GMT+10:30</option>
+        <option value="+11:00">GMT+11:00</option>
+        <option value="+12:00">GMT+12:00</option>
+        <option value="-11:00">GMT-11:00</option>
+        <option value="-10:00">GMT-10:00</option>
+        <option value="-09:00">GMT-9:00</option>
+        <option value="-08:00">GMT-8:00</option>
+        <option value="-07:00">GMT-7:00</option>
+        <option value="-06:00">GMT-6:00</option>
+        <option value="-05:00">GMT-5:00</option>
+        <option value="-04:00">GMT-4:00</option>
+        <option value="-03:30">GMT-3:30</option>
+        <option value="-03:00">GMT-3:00</option>
+        <option value="-01:00">GMT-1:00</option>
+      </select>
+    </div>
+    <br />
+    <hr />
+    <div class="conversion-container">
+      <p>Pick a conversion type:</p>
+      <select name="conversion" id="conversion">
+        <option value="">- none -</option>
+        <option value="seconds">Seconds</option>
+        <option value="minutes">Minutes</option>
+        <option value="hours">Hours</option>
+        <option value="years">Years</option>
+      </select>
+    </div>
+    <br />
+    <hr />
+    <p>
+      Clicking the Submit button below will POST request with a body looking
+      like:
+    </p>
+    <code
+      >{ <br />
+      dateOne: '2021-12-06T17:00Z', <br />
+      dateTwo: '2021-12-06T17:00+10:30', <br />
+      conversion: 'seconds' <br />
+      }</code
+    >
+    <br />
+
+    <br />
+    <button onclick="sendPOST()"><b>Submit</b></button>
+  </body>
+</html>
