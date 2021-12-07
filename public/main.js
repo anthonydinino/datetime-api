@@ -5,6 +5,7 @@ async function sendPOST() {
   const conversion = document.querySelector("#conversion").value;
   const timezoneOne = document.querySelector("#timezoneOne").value;
   const timezoneTwo = document.querySelector("#timezoneTwo").value;
+  const result = document.querySelector("#result");
 
   //add the timezones to each of the dates
   dateOne += timezoneOne;
@@ -25,9 +26,9 @@ async function sendPOST() {
       headers: { "Content-type": "application/json; charset=UTF-8" },
     });
     const response = await payload.json();
-    console.log(response);
+    result.innerText = JSON.stringify(response);
   } catch (error) {
-    console.log(error.message);
+    result.innerText = JSON.stringify("Something went wrong...");
   }
 }
 

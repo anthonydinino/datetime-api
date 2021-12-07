@@ -103,20 +103,12 @@
     </div>
     <br />
     <hr />
-    <p>
-      Clicking the Submit button below will POST request with a body looking
-      like:
-    </p>
-    <code
-      >{ <br />
-      dateOne: '2021-12-06T17:00Z', <br />
-      dateTwo: '2021-12-06T17:00+10:30', <br />
-      conversion: 'seconds' <br />
-      }</code
-    >
-    <br />
-
-    <br />
     <button onclick="sendPOST()"><b>Submit</b></button>
+    <br />
+    <br />
+    <p>Response:</p>
+    <div class="result-container">
+      <code id="result">Hello</code>
+    </div>
   </body>
 </html>
