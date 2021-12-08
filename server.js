@@ -34,6 +34,8 @@ app.post("/", (req, res) => {
     daysBetweenValue = daysBetween(dateOne, dateTwo);
     completeWeeksBetweenValue = completeWeeksBetween(daysBetweenValue);
     weekdaysBetweenValue = weekdaysBetween(
+      dateOne,
+      dateTwo,
       daysBetweenValue,
       completeWeeksBetweenValue
     );

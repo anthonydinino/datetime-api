@@ -10,8 +10,12 @@ const getDateMilliseconds = (dateOne, dateTwo) => {
 };
 
 const daysBetween = (dateOne, dateTwo) => {
+  //converts the dates to milliseconds
   diff = getDateMilliseconds(dateOne, dateTwo);
-  return (diff / (1000 * 60 * 60 * 24)).toFixed(2);
+  
+  //converts to seconds>minutes>hours then days
+  //
+  return Math.round((diff / (1000 * 60 * 60 * 24)) * 100) / 100;
 };
 
 const completeWeeksBetween = (daysBetween) => {
@@ -19,7 +23,19 @@ const completeWeeksBetween = (daysBetween) => {
 };
 
 //TODO
-const weekdaysBetween = (daysBetween, weeksBetween) => {
+const weekdaysBetween = (dateOne, dateTwo, daysBetween, weeksBetween) => {
+  new Date().getDay();
+
+  //determine what days of the weeks both dates are on
+  dayOne = dateOne.getDay(); //0-6 Sun - Sat
+  dayTwo = dateTwo.getDay(); //0-6 Sun - Sat
+
+  //if dates are both on weekdays,
+  //we can -2 weekend days for every week
+
+  if (dayOne === 6 || dayOne === 0) {
+  }
+  console.log(dayOne, dayTwo);
   let numOfWeekends = weeksBetween * 2;
   return daysBetween - numOfWeekends;
 };

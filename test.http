@@ -2,8 +2,8 @@ POST http://localhost:3000 HTTP/1.1
 Content-Type: application/json
 
 {
-    "dateOne": "2022-12-09T17:00Z",
-    "dateTwo": "2021-12-06T17:00+10:30",
+    "dateOne": "2021-12-08T17:00+10:30",
+    "dateTwo": "2021-12-08T17:00+04:30",
     "conversion": ""
 }
 
