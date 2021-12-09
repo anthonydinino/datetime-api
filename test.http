@@ -3,8 +3,7 @@ Content-Type: application/json
 
 {
     "dateOne": "2021-12-08T17:00+10:30",
-    "dateTwo": "2021-12-08T17:00+04:30",
-    "conversion": ""
+    "dateTwo": "2021-12-08T17:00+04:30"
 }
 
 ###

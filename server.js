@@ -1,14 +1,11 @@
 const express = require("express");
+const res = require("express/lib/response");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-//importing the necessary errorhandler and functions
-const { isValidDate } = require("./errorhandler");
-const {
-  daysBetween,
-  weekdaysBetween,
-  completeWeeksBetween,
-} = require("./tools");
+//importing the necessary errorhandlers and functions
+const { isValidDates, isValidConversion } = require("./errorhandler");
+const { daysBetween, weekdaysBetween, weeksBetween } = require("./tools");
 
 // allows the use of json
 app.use(express.json());
@@ -22,28 +19,21 @@ app.listen(PORT, () => {
   console.log("listening on port " + PORT + "...");
 });
 
-//POST request is sent
-app.post("/", (req, res) => {
+app.post("/:conversion", (req, res) => {
   try {
-    //parses the date strings as date objects and validates
+    //retrieves all neccesary data from post request
     dateOne = new Date(req.body.dateOne);
     dateTwo = new Date(req.body.dateTwo);
-    isValidDate(dateOne, dateTwo);
+    const conversion = req.params.conversion;
 
-    //calculation of variables using imported functions
-    daysBetweenValue = daysBetween(dateOne, dateTwo);
-    completeWeeksBetweenValue = completeWeeksBetween(daysBetweenValue);
-    weekdaysBetweenValue = weekdaysBetween(
-      dateOne,
-      dateTwo,
-      daysBetweenValue,
-      completeWeeksBetweenValue
-    );
+    //error handling
+    isValidDates(dateOne, dateTwo);
+    isValidConversion(conversion);
 
     res.json({
-      daysBetween: daysBetweenValue,
-      weekdaysBetween: weekdaysBetweenValue,
-      completeWeeksBetween: completeWeeksBetweenValue,
+      daysBetween: 0,
+      weekdaysBetween: 0,
+      weeksBetween: 0,
     });
   } catch (error) {
     res.status(400).send(error.message);

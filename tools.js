@@ -1,4 +1,4 @@
-const getDateMilliseconds = (dateOne, dateTwo) => {
+const getDifferenceMilliseconds = (dateOne, dateTwo) => {
   //parses the dates to milliseconds gets the difference
   dateOne = Date.parse(dateOne);
   dateTwo = Date.parse(dateTwo);
@@ -9,17 +9,14 @@ const getDateMilliseconds = (dateOne, dateTwo) => {
   return ans;
 };
 
-const daysBetween = (dateOne, dateTwo) => {
-  //converts the dates to milliseconds
-  diff = getDateMilliseconds(dateOne, dateTwo);
-  
-  //converts to seconds>minutes>hours then days
-  //
-  return Math.round((diff / (1000 * 60 * 60 * 24)) * 100) / 100;
+const daysBetween = (milliseconds) => {
+  //converts milliseconds to seconds>minutes>hours then days
+  return milliseconds / (1000 * 60 * 60 * 24);
 };
 
-const completeWeeksBetween = (daysBetween) => {
-  return Math.floor(daysBetween / 7);
+const weeksBetween = (milliseconds) => {
+  //converts milliseconds to seconds>minutes>hours>days then weeks
+  return milliseconds / (1000 * 60 * 60 * 24 * 7);
 };
 
 //TODO
@@ -40,4 +37,8 @@ const weekdaysBetween = (dateOne, dateTwo, daysBetween, weeksBetween) => {
   return daysBetween - numOfWeekends;
 };
 
-module.exports = { daysBetween, weekdaysBetween, completeWeeksBetween };
+module.exports = {
+  daysBetween,
+  weekdaysBetween,
+  weeksBetween,
+};
