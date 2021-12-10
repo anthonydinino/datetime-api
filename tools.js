@@ -1,44 +1,40 @@
-const getDifferenceMilliseconds = (dateOne, dateTwo) => {
+const getDifference = (dateOne, dateTwo) => {
   //parses the dates to milliseconds gets the difference
   dateOne = Date.parse(dateOne);
   dateTwo = Date.parse(dateTwo);
-  let ans = dateTwo - dateOne;
+  let result = dateTwo - dateOne;
 
   //if the difference is negative, change to positive
-  if (ans < 0) ans *= -1;
-  return ans;
+  if (result < 0) result *= -1;
+  return result;
 };
 
-const daysBetween = (milliseconds) => {
-  //converts milliseconds to seconds>minutes>hours then days
-  return milliseconds / (1000 * 60 * 60 * 24);
+const calculateWeekdays = (milliseconds) => {
+  return milliseconds;
 };
 
-const weeksBetween = (milliseconds) => {
-  //converts milliseconds to seconds>minutes>hours>days then weeks
-  return milliseconds / (1000 * 60 * 60 * 24 * 7);
+const calculateCompleteWeeks = (milliseconds) => {
+  //convert to weeks to get complete weeks
+  let weeks = convert(milliseconds, "weeks");
+  weeks = Math.floor(weeks);
+  //converts back to millliseconds for usability
+  return weeks * 7 * 24 * 60 * 60 * 1000;
 };
 
-//TODO
-const weekdaysBetween = (dateOne, dateTwo, daysBetween, weeksBetween) => {
-  new Date().getDay();
-
-  //determine what days of the weeks both dates are on
-  dayOne = dateOne.getDay(); //0-6 Sun - Sat
-  dayTwo = dateTwo.getDay(); //0-6 Sun - Sat
-
-  //if dates are both on weekdays,
-  //we can -2 weekend days for every week
-
-  if (dayOne === 6 || dayOne === 0) {
-  }
-  console.log(dayOne, dayTwo);
-  let numOfWeekends = weeksBetween * 2;
-  return daysBetween - numOfWeekends;
+//converts milliseconds to respective conversion (c)
+const convert = (milliseconds, c) => {
+  if (!c) return milliseconds;
+  if (c === "seconds") return milliseconds / 1000;
+  if (c === "minutes") return milliseconds / (1000 * 60);
+  if (c === "hours") return milliseconds / (1000 * 60 * 60);
+  if (c === "days") return milliseconds / (1000 * 60 * 60 * 24);
+  if (c === "weeks") return milliseconds / (1000 * 60 * 60 * 24 * 7);
+  if (c === "years") return milliseconds / (1000 * 60 * 60 * 24 * 7 * 52);
 };
 
 module.exports = {
-  daysBetween,
-  weekdaysBetween,
-  weeksBetween,
+  convert,
+  getDifference,
+  calculateWeekdays,
+  calculateCompleteWeeks,
 };
