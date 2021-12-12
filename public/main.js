@@ -31,10 +31,3 @@ async function sendPOST() {
     result.innerText = JSON.stringify("Something went wrong...");
   }
 }
-
-// isValid
-// 2021-12-16T14:02
-// 2021-12-01T03:33+10:30
-// 2015-03-25T12:00:00-06:30
-
-//You need the Z if you are adding seconds

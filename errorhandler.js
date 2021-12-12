@@ -15,11 +15,13 @@ module.exports = {
         break;
       case "hours":
         break;
+      case "days":
+        break;
       case "years":
         break;
       default:
         throw new Error(
-          "Pick a valid conversion type: seconds, minutes, hours or years"
+          "Pick a valid conversion type: seconds, minutes, hours, days or years"
         );
     }
   },

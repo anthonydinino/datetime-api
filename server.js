@@ -1,5 +1,4 @@
 const express = require("express");
-const res = require("express/lib/response");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -10,6 +9,7 @@ const {
   getDifference,
   calculateWeekdays,
   calculateCompleteWeeks,
+  getTimezoneOffset,
 } = require("./tools");
 
 // allows the use of json
@@ -38,20 +38,37 @@ app.post("/:conversion?", (req, res) => {
     //gets the difference in milliseconds between the two dates
     let diff = getDifference(dateOne, dateTwo);
     let weeks = calculateCompleteWeeks(diff);
-    let weekdays = calculateWeekdays(diff);
 
-    //check if there's a conversion otherwise convert normally
+    //check if there's a conversion specified otherwise convert normally
     const daysBetween = conversion
       ? convert(diff, conversion)
       : convert(diff, "days");
 
-    const weekdaysBetween = conversion
-      ? convert(weekdays, conversion)
-      : convert(weekdays, "days");
-
     const weeksBetween = conversion
       ? convert(weeks, conversion)
       : convert(weeks, "weeks");
+
+    let weekdaysBetween = "Both timezones must be the same...";
+
+    //check if timezones match
+    const tzRegex = /(\+|-)\d{2}:\d{2}/g; //regex to select timezone
+    const timezoneOne = req.body.dateOne.match(tzRegex)[0];
+    const timezoneTwo = req.body.dateTwo.match(tzRegex)[0];
+    const timezonesMatch = timezoneOne === timezoneTwo ? true : false;
+
+    //if timezones match, we can calculate weekdaysBetween
+    if (timezonesMatch) {
+      //get the offset of timezone specified in milliseconds
+      const TZoffset = getTimezoneOffset(timezoneOne);
+
+      //finally calculate weekdays between two dates
+      let weekdays = calculateWeekdays(dateOne, dateTwo, TZoffset);
+
+      //check if there's a conversion otherwise convert normally
+      weekdaysBetween = conversion
+        ? convert(weekdays, conversion)
+        : convert(weekdays, "days");
+    }
 
     res.json({
       daysBetween,
