@@ -48,7 +48,7 @@ app.post("/:conversion?", (req, res) => {
       ? convert(weeks, conversion)
       : convert(weeks, "weeks");
 
-    let weekdaysBetween = "Both timezones must be the same...";
+    let weekdaysBetween = "Both timezones must be the same";
 
     //check if timezones match
     const tzRegex = /(\+|-)\d{2}:\d{2}/g; //regex to select timezone
