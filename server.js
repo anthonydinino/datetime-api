@@ -52,10 +52,12 @@ app.post("/:conversion?", (req, res) => {
     let weekdaysBetweenValue = "Both timezones must match";
 
     //check if timezones match
-    const tzRegex = /(\+|-)\d{2}:\d{2}/g; //regex to select timezone
+    const tzRegex = /(z|(\+|-)\d{2}:\d{2})/gi; //regex to select timezone
     const timezoneOne = req.body.dateOne.match(tzRegex)[0];
     const timezoneTwo = req.body.dateTwo.match(tzRegex)[0];
     const timezonesMatch = timezoneOne === timezoneTwo ? true : false;
+
+    console.log(timezonesMatch, timezoneOne);
 
     //if timezones match, we can calculate weekdaysBetween
     if (timezonesMatch) {
