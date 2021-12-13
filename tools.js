@@ -13,7 +13,15 @@ const isWeekend = (utcDate) => {
   return utcDate.getUTCDay() === 0 || utcDate.getUTCDay() === 6 ? true : false;
 };
 
+const rounded = (input) => {
+  if (typeof input === "string") return input;
+  return Math.round(input * 100) / 100;
+};
+
 const getTimezoneOffset = (timezone) => {
+  //if timezone is not +HH:MM format
+  if (!/(\+|-)\d{2}:\d{2}/.test(timezone)) return 0;
+
   //converts hours and minutes into milliseconds
   let time = timezone.split(":");
   let hours = parseInt(time[0]) * 60 * 60 * 1000;
@@ -45,7 +53,7 @@ const getStartOfWeekdaysDate = (inputDate, TZoffset) => {
   const testDate = new Date(inputDate.getTime() + TZoffset);
 
   //loops until we hit a monday
-  while (testDate.getDay() !== 1) {
+  while (testDate.getUTCDay() !== 1) {
     testDate.setDate(testDate.getDate() - 1);
   }
 
@@ -56,9 +64,9 @@ const getStartOfWeekdaysDate = (inputDate, TZoffset) => {
   return new Date(testDate.getTime() - TZoffset);
 };
 
-const calculateWeekdays = (dateOne, dateTwo, TZoffset) => {
-  //switches dates if date two is older
+const weekdaysBetween = (dateOne, dateTwo, TZoffset) => {
   if (dateTwo < dateOne) {
+    //switches dates if date two is older
     let temp = dateOne;
     dateOne = dateTwo;
     dateTwo = temp;
@@ -88,7 +96,7 @@ const calculateWeekdays = (dateOne, dateTwo, TZoffset) => {
   //for every complete week we calculate 5 weekdays in milliseconds
   let completeWeeksWeekdays =
     convert(
-      calculateCompleteWeeks(getDifference(dateOneEnd, dateTwoStart)),
+      completeWeeksBetween(getDifference(dateOneEnd, dateTwoStart)),
       "weeks"
     ) *
     (5 * 24 * 60 * 60 * 1000);
@@ -101,7 +109,7 @@ const calculateWeekdays = (dateOne, dateTwo, TZoffset) => {
   return weekdaysDiff;
 };
 
-const calculateCompleteWeeks = (milliseconds) => {
+const completeWeeksBetween = (milliseconds) => {
   //convert to weeks to get complete weeks
   let weeks = convert(milliseconds, "weeks");
   weeks = Math.floor(weeks);
@@ -117,13 +125,14 @@ const convert = (milliseconds, c) => {
   if (c === "hours") return milliseconds / (1000 * 60 * 60);
   if (c === "days") return milliseconds / (1000 * 60 * 60 * 24);
   if (c === "weeks") return milliseconds / (1000 * 60 * 60 * 24 * 7);
-  if (c === "years") return milliseconds / (1000 * 60 * 60 * 24 * 7 * 52);
+  if (c === "years") return milliseconds / (1000 * 60 * 60 * 24 * 7 * 52.1429);
 };
 
 module.exports = {
   convert,
+  rounded,
   getDifference,
   getTimezoneOffset,
-  calculateWeekdays,
-  calculateCompleteWeeks,
+  weekdaysBetween,
+  completeWeeksBetween,
 };

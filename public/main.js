@@ -15,12 +15,11 @@ async function sendPOST() {
   const data = {
     dateOne,
     dateTwo,
-    conversion,
   };
 
   //POST request using fetch
   try {
-    const payload = await fetch("/", {
+    const payload = await fetch(`/${conversion}`, {
       method: "POST",
       body: JSON.stringify(data),
       headers: { "Content-type": "application/json; charset=UTF-8" },

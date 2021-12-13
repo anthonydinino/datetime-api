@@ -6,9 +6,10 @@ const PORT = process.env.PORT || 3000;
 const { isValidDates, isValidConversion } = require("./errorhandler");
 const {
   convert,
+  rounded,
   getDifference,
-  calculateWeekdays,
-  calculateCompleteWeeks,
+  weekdaysBetween,
+  completeWeeksBetween,
   getTimezoneOffset,
 } = require("./tools");
 
@@ -37,18 +38,18 @@ app.post("/:conversion?", (req, res) => {
 
     //gets the difference in milliseconds between the two dates
     let diff = getDifference(dateOne, dateTwo);
-    let weeks = calculateCompleteWeeks(diff);
+    let weeks = completeWeeksBetween(diff);
 
     //check if there's a conversion specified otherwise convert normally
-    const daysBetween = conversion
+    let daysBetween = conversion
       ? convert(diff, conversion)
       : convert(diff, "days");
 
-    const weeksBetween = conversion
+    let weeksBetween = conversion
       ? convert(weeks, conversion)
       : convert(weeks, "weeks");
 
-    let weekdaysBetween = "Both timezones must be the same";
+    let weekdaysBetweenValue = "Both timezones must match";
 
     //check if timezones match
     const tzRegex = /(\+|-)\d{2}:\d{2}/g; //regex to select timezone
@@ -58,21 +59,26 @@ app.post("/:conversion?", (req, res) => {
 
     //if timezones match, we can calculate weekdaysBetween
     if (timezonesMatch) {
-      //get the offset of timezone specified in milliseconds
+      //get the offset of timezone specified from GMT in milliseconds
       const TZoffset = getTimezoneOffset(timezoneOne);
 
       //finally calculate weekdays between two dates
-      let weekdays = calculateWeekdays(dateOne, dateTwo, TZoffset);
+      let weekdays = weekdaysBetween(dateOne, dateTwo, TZoffset);
 
       //check if there's a conversion otherwise convert normally
-      weekdaysBetween = conversion
+      weekdaysBetweenValue = conversion
         ? convert(weekdays, conversion)
         : convert(weekdays, "days");
     }
 
+    //round to nearest 2 decimals points
+    daysBetween = rounded(daysBetween);
+    weekdaysBetweenValue = rounded(weekdaysBetweenValue);
+    weeksBetween = rounded(weeksBetween);
+
     res.json({
       daysBetween,
-      weekdaysBetween,
+      weekdaysBetweenValue,
       weeksBetween,
     });
   } catch (error) {
