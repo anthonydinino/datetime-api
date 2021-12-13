@@ -2,13 +2,10 @@
 
 ## How to run
 
-1. Download or clone repository into a selected folder.
-2. Download and install Node.js using this [link](https://nodejs.org/en/download/).
-3. Check node is working in your terminal using command `node --version`
-4. Navigate to the root of the selected folder in the terminal.
-5. Run command `npm install` to install necessary files.
-6. Run command `npm start` to host on localhost:3000
-7. Open any browser and visit `localhost:3000`
+1. Ensure Node version v14.00 or later
+2. Run command `npm install` to install necessary files.
+3. Run command `npm start` to host on localhost:3000
+4. Open any browser and visit `localhost:3000`
 
 ## Test
 
