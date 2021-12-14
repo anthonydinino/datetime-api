@@ -41,11 +41,11 @@ app.post("/:conversion?", (req, res) => {
     let weeks = completeWeeksBetween(diff);
 
     //check if there's a conversion specified otherwise convert normally
-    let daysBetween = conversion
+    let daysBetweenValue = conversion
       ? convert(diff, conversion)
       : convert(diff, "days");
 
-    let weeksBetween = conversion
+    let completeWeeksBetweenValue = conversion
       ? convert(weeks, conversion)
       : convert(weeks, "weeks");
 
@@ -56,8 +56,6 @@ app.post("/:conversion?", (req, res) => {
     const timezoneOne = req.body.dateOne.match(tzRegex)[0];
     const timezoneTwo = req.body.dateTwo.match(tzRegex)[0];
     const timezonesMatch = timezoneOne === timezoneTwo ? true : false;
-
-    console.log(timezonesMatch, timezoneOne);
 
     //if timezones match, we can calculate weekdaysBetween
     if (timezonesMatch) {
@@ -74,14 +72,14 @@ app.post("/:conversion?", (req, res) => {
     }
 
     //round to nearest 2 decimals points
-    daysBetween = rounded(daysBetween);
+    daysBetweenValue = rounded(daysBetweenValue);
     weekdaysBetweenValue = rounded(weekdaysBetweenValue);
-    weeksBetween = rounded(weeksBetween);
+    completeWeeksBetweenValue = rounded(completeWeeksBetweenValue);
 
     res.json({
-      daysBetween,
+      daysBetweenValue,
       weekdaysBetweenValue,
-      weeksBetween,
+      completeWeeksBetweenValue,
     });
   } catch (error) {
     res.status(400).send(error.message);

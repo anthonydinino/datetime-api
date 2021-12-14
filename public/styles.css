@@ -1,0 +1,99 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Display&display=swap");
+
+:root {
+  --default-padding: 1rem;
+  --primary-color: limegreen;
+  --box-width: 600px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Noto Sans Display;
+  margin: 0;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--default-padding);
+  background-color: #efefef;
+  text-align: center;
+}
+
+p {
+  margin: 0;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: min(100vw, var(--box-width));
+  gap: var(--default-padding);
+  padding: var(--default-padding);
+  flex-wrap: wrap;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 3px 3px 5px 6px #ccc;
+  margin: var(--default-padding) 0;
+}
+
+.button-container {
+  text-align: center;
+  margin: var(--default-padding) 0;
+}
+
+.submit-button {
+  cursor: pointer;
+  color: white;
+  border-radius: 5px;
+  border: 0;
+  padding: calc(var(--default-padding) / 2) calc(var(--default-padding) * 2);
+  background-color: var(--primary-color);
+}
+
+.submit-button:hover {
+  transition: all 0.2s;
+  background-color: white;
+  box-shadow: inset 0 0 0 2px var(--primary-color);
+  color: var(--primary-color);
+}
+
+#error {
+  color: red;
+}
+
+table {
+  border-collapse: collapse;
+  min-width: min(100%, var(--box-width));
+  margin: var(--default-padding) 0;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+@media screen and (max-width: 500px) {
+  body {
+    padding: 0;
+    font-size: smaller;
+  }
+  .card {
+    padding: var(--default-padding) 0 var(--default-padding) 2px;
+  }
+}
+
+@media screen and (max-width: 250px) {
+  .card {
+    justify-content: left;
+  }
+}

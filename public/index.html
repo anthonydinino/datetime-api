@@ -5,23 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" type="image/jpg" href="favicon.ico" />
     <script src="main.js"></script>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="styles.css" />
     <title>Date API</title>
   </head>
   <body>
-    <h1>Date Time API</h1>
-    <p>Please enter two dates and find the number of:</p>
-    <ul>
-      <li>Days between them</li>
-      <li>Weekdays between them</li>
-      <li>Complete weeks between them</li>
-    </ul>
-    <hr />
-    <div class="date-one-container">
+    <div class="header-container">
+      <h1>Date Time API</h1>
+      <p>
+        Find the number of days, weekdays, and complete weeks between two dates.
+      </p>
+    </div>
+    <div class="card">
       <label for="dateOne">Date #1: </label>
       <input type="datetime-local" name="dateOne" id="dateOne" />
-      <p>Please choose a timezone:</p>
-      <select id="timezoneOne" name="timezoneOne">
+      <select class="dropdown" id="timezoneOne" name="timezoneOne">
         <option value="Z">GMT+00:00</option>
         <option value="+01:00">GMT+1:00</option>
         <option value="+02:00">GMT+2:00</option>
@@ -52,13 +49,10 @@
         <option value="-01:00">GMT-1:00</option>
       </select>
     </div>
-    <br />
-    <hr />
-    <div class="date-two-container">
+    <div class="card">
       <label for="dateTwo">Date #2: </label>
       <input type="datetime-local" name="dateTwo" id="dateTwo" />
-      <p>Please choose a timezone:</p>
-      <select id="timezoneTwo" name="timezoneTwo">
+      <select class="dropdown" id="timezoneTwo" name="timezoneTwo">
         <option value="Z">GMT+00:00</option>
         <option value="+01:00">GMT+1:00</option>
         <option value="+02:00">GMT+2:00</option>
@@ -89,12 +83,10 @@
         <option value="-01:00">GMT-1:00</option>
       </select>
     </div>
-    <br />
-    <hr />
-    <div class="conversion-container">
+    <div class="card">
       <p>Pick a conversion type:</p>
-      <select name="conversion" id="conversion">
-        <option value="">- none -</option>
+      <select class="dropdown" name="conversion" id="conversion">
+        <option value="">Default</option>
         <option value="seconds">Seconds</option>
         <option value="minutes">Minutes</option>
         <option value="hours">Hours</option>
@@ -103,14 +95,24 @@
         <option value="years">Years</option>
       </select>
     </div>
-    <br />
-    <hr />
-    <button onclick="sendPOST()"><b>Submit</b></button>
-    <br />
-    <br />
-    <p>Response:</p>
-    <div class="result-container">
-      <code id="result">Hello</code>
+    <div class="button-container">
+      <button class="submit-button" onclick="sendPOST()"><b>Submit</b></button>
+      <p id="error"></p>
     </div>
+
+    <table>
+      <tr>
+        <th id="header1"></th>
+        <td id="value1"></td>
+      </tr>
+      <tr>
+        <th id="header2"></th>
+        <td id="value2"></td>
+      </tr>
+      <tr>
+        <th id="header3"></th>
+        <td id="value3"></td>
+      </tr>
+    </table>
   </body>
 </html>
