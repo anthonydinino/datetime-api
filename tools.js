@@ -76,22 +76,16 @@ const weekdaysBetween = (dateOne, dateTwo, TZoffset) => {
   let dateOneWeekend = isWeekend(new Date(dateOne.getTime() + TZoffset));
   let dateTwoWeekend = isWeekend(new Date(dateTwo.getTime() + TZoffset));
 
-  //initialisation of remainders
-  let dateOneRemainder = 0;
-  let dateTwoRemainder = 0;
-
   //if dateOne is on a weekday calculate remainder until the weekend
   let dateOneEnd = dateOne; //initialization
   if (!dateOneWeekend) {
     dateOneEnd = getEndOfWeekDate(dateOne, TZoffset);
-    dateOneRemainder = getDifference(dateOne, dateOneEnd);
   }
 
   //if dateTwo is a weekday, calculate remainder from the start of the week
   let dateTwoStart = dateTwo;
   if (!dateTwoWeekend) {
     dateTwoStart = getStartOfWeekdaysDate(dateTwo, TZoffset);
-    dateTwoRemainder = getDifference(dateTwoStart, dateTwo);
   } else {
     //if dateTwo is a weekend, add a whole week of weekdays
     dateTwoRemainder = 5 * 24 * 60 * 60 * 1000;
