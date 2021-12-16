@@ -30,10 +30,10 @@ describe("Calculating weekdays between", () => {
     expect(convert(test, "days")).to.be.eq(2);
   });
   it("Weekday - Weekend in same week", () => {
-    let dateOne = new Date("2021-12-08T12:00+10:30"); //this is wednesday
+    let dateOne = new Date("2021-12-08T00:00+10:30"); //this is wednesday
     let dateTwo = new Date("2021-12-12T17:00+10:30"); //this is sunday
     let test = weekdaysBetween(dateOne, dateTwo, TZoffset);
-    expect(convert(test, "days")).to.be.eq(2.5);
+    expect(convert(test, "days")).to.be.eq(3);
   });
   it("Weekend - Weekend in same week", () => {
     let dateOne = new Date("2021-12-04T17:00+10:30"); //saturday

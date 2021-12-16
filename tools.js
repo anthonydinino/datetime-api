@@ -76,6 +76,12 @@ const weekdaysBetween = (dateOne, dateTwo, TZoffset) => {
   let dateOneWeekend = isWeekend(new Date(dateOne.getTime() + TZoffset));
   let dateTwoWeekend = isWeekend(new Date(dateTwo.getTime() + TZoffset));
 
+  //number of complete weeks between two dates
+  let completeWeeks = convert(
+    completeWeeksBetween(getDifference(dateOne, dateTwo)),
+    "weeks"
+  );
+
   //two dates used to get difference for first and last week
   let dateOneEnd = dateOne;
   let dateTwoStart = dateTwo;
@@ -86,12 +92,8 @@ const weekdaysBetween = (dateOne, dateTwo, TZoffset) => {
   }
 
   //if dateTwo is a weekday, calculate remainder from the start of the week
-
   if (!dateTwoWeekend) {
     dateTwoStart = getStartOfWeekdaysDate(dateTwo, TZoffset);
-  } else {
-    //if dateTwo is a weekend, add a whole week of weekdays
-    dateTwoRemainder = 5 * 24 * 60 * 60 * 1000;
   }
 
   //for every complete week we calculate 5 weekdays in milliseconds
@@ -102,10 +104,17 @@ const weekdaysBetween = (dateOne, dateTwo, TZoffset) => {
     ) *
     (5 * 24 * 60 * 60 * 1000);
 
+  // console.log(convert(getDifference(dateOne, dateOneEnd), "days"));
+  // console.log(convert(completeWeeksWeekdays, "days"));
+  // console.log(convert(getDifference(dateTwoStart, dateTwo), "days"));
+
   const weekdaysDiff =
     getDifference(dateOne, dateOneEnd) +
     completeWeeksWeekdays +
     getDifference(dateTwoStart, dateTwo);
+
+  // console.log("--------");
+  // console.log(convert(weekdaysDiff, "days"));
 
   return weekdaysDiff;
 };
