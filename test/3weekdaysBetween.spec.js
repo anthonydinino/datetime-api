@@ -24,14 +24,14 @@ describe("Calculating weekdays between", () => {
     expect(convert(test2, "days")).to.be.eq(5);
   });
   it("Weekday - Weekday in same week", () => {
-    let dateOne = new Date("2021-12-08T12:00+10:30"); //this is wednesday
-    let dateTwo = new Date("2021-12-10T12:00+10:30"); //this is friday
+    let dateOne = new Date("2021-12-08T12:00+10:30"); //wednesday
+    let dateTwo = new Date("2021-12-10T12:00+10:30"); //friday
     let test = weekdaysBetween(dateOne, dateTwo, TZoffset);
     expect(convert(test, "days")).to.be.eq(2);
   });
   it("Weekday - Weekend in same week", () => {
-    let dateOne = new Date("2021-12-08T00:00+10:30"); //this is wednesday
-    let dateTwo = new Date("2021-12-12T17:00+10:30"); //this is sunday
+    let dateOne = new Date("2021-12-08T00:00+10:30"); //wednesday
+    let dateTwo = new Date("2021-12-12T17:00+10:30"); //sunday
     let test = weekdaysBetween(dateOne, dateTwo, TZoffset);
     expect(convert(test, "days")).to.be.eq(3);
   });
@@ -42,26 +42,32 @@ describe("Calculating weekdays between", () => {
     expect(convert(test, "days")).to.be.eq(0);
   });
   it("Weekend - Weekday into the next week", () => {
-    let dateOne = new Date("2021-12-11T12:00+10:30"); //this is saturday
-    let dateTwo = new Date("2021-12-15T12:00+10:30"); //this is wednesday
+    let dateOne = new Date("2021-12-11T12:00+10:30"); //saturday
+    let dateTwo = new Date("2021-12-15T12:00+10:30"); //wednesday
     let test = weekdaysBetween(dateOne, dateTwo, TZoffset);
     expect(convert(test, "days")).to.be.eq(2.5);
   });
   it("Weekday - Weekend into the next week", () => {
-    let dateOne = new Date("2021-12-08T12:00+10:30"); //this is wednesday
-    let dateTwo = new Date("2021-12-18T12:00+10:30"); //this is saturday
+    let dateOne = new Date("2021-12-08T12:00+10:30"); //wednesday
+    let dateTwo = new Date("2021-12-18T12:00+10:30"); //saturday
     let test = weekdaysBetween(dateOne, dateTwo, TZoffset);
     expect(convert(test, "days")).to.be.eq(7.5);
   });
+  it("Weekend - Weekend into the next week", () => {
+    let dateOne = new Date("2021-12-12T12:00+10:30"); //sunday
+    let dateTwo = new Date("2021-12-18T12:00+10:30"); //saturday
+    let test = weekdaysBetween(dateOne, dateTwo, TZoffset);
+    expect(convert(test, "days")).to.be.eq(5);
+  });
   it("Weekend - Weekday over a week", () => {
-    let dateOne = new Date("2021-12-11T12:00+10:30"); //this is saturday
-    let dateTwo = new Date("2021-12-22T12:00+10:30"); //this is wednesday
+    let dateOne = new Date("2021-12-11T12:00+10:30"); //saturday
+    let dateTwo = new Date("2021-12-22T12:00+10:30"); //wednesday
     let test = weekdaysBetween(dateOne, dateTwo, TZoffset);
     expect(convert(test, "days")).to.be.eq(7.5);
   });
   it("Weekend - Weekend over a week", () => {
-    let dateOne = new Date("2021-12-11T12:00+10:30"); //this is saturday
-    let dateTwo = new Date("2021-12-19T12:00+10:30"); //this is sunday > 1week
+    let dateOne = new Date("2021-12-11T12:00+10:30"); //saturday
+    let dateTwo = new Date("2021-12-19T12:00+10:30"); //sunday > 1week
     let test = weekdaysBetween(dateOne, dateTwo, TZoffset);
     expect(convert(test, "days")).to.be.eq(5);
   });
