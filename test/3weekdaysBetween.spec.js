@@ -47,6 +47,12 @@ describe("Calculating weekdays between", () => {
     let test = weekdaysBetween(dateOne, dateTwo, TZoffset);
     expect(convert(test, "days")).to.be.eq(1);
   });
+  it("Weekday - Weekday 6 days apart", () => {
+    let dateOne = new Date("2021-12-10T12:00+10:30"); //friday
+    let dateTwo = new Date("2021-12-16T12:00+10:30"); //thrusday
+    let test = weekdaysBetween(dateOne, dateTwo, TZoffset);
+    expect(convert(test, "days")).to.be.eq(4);
+  });
   it("Weekday - Weekend into the next week", () => {
     let dateOne = new Date("2021-12-08T12:00+10:30"); //wednesday
     let dateTwo = new Date("2021-12-18T12:00+10:30"); //saturday
