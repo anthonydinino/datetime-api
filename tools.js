@@ -9,13 +9,17 @@ const getDifference = (dateOne, dateTwo) => {
   return result;
 };
 
+const rounded = (input) => {
+  if (typeof input === "string") return input;
+  return Math.round(input * 100) / 100;
+};
+
 const isWeekend = (utcDate) => {
   return utcDate.getUTCDay() === 0 || utcDate.getUTCDay() === 6 ? true : false;
 };
 
-const rounded = (input) => {
-  if (typeof input === "string") return input;
-  return Math.round(input * 100) / 100;
+const getDayOfWeek = (utcDate) => {
+  return utcDate.getUTCDay();
 };
 
 const getTimezoneOffset = (timezone) => {
@@ -72,6 +76,10 @@ const weekdaysBetween = (dateOne, dateTwo, TZoffset) => {
     dateTwo = temp;
   }
 
+  //gets the day of the week and stores as a number from either 0 - 6
+  let dateOneDay = getDayOfWeek(new Date(dateOne.getTime() + TZoffset));
+  let dateTwoDay = getDayOfWeek(new Date(dateTwo.getTime() + TZoffset));
+
   //check if both dates are weekend or not
   let dateOneWeekend = isWeekend(new Date(dateOne.getTime() + TZoffset));
   let dateTwoWeekend = isWeekend(new Date(dateTwo.getTime() + TZoffset));
@@ -79,8 +87,13 @@ const weekdaysBetween = (dateOne, dateTwo, TZoffset) => {
   //number of complete days between two dates
   let daysDifference = convert(getDifference(dateOne, dateTwo), "days");
 
-  //if on same week and both weekdays
-  if (!dateOneWeekend && !dateTwoWeekend && daysDifference < 5)
+  //if on same week, both weekdays and not into the next week
+  if (
+    !dateOneWeekend &&
+    !dateTwoWeekend &&
+    daysDifference < 5 &&
+    dateOneDay <= dateTwoDay
+  )
     return getDifference(dateOne, dateTwo);
 
   //initailization of two dates used to get difference for first and last week
