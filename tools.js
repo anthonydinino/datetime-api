@@ -87,7 +87,7 @@ const weekdaysBetween = (dateOne, dateTwo, TZoffset) => {
   //number of complete days between two dates
   let daysDifference = convert(getDifference(dateOne, dateTwo), "days");
 
-  //if on same week, both weekdays and not into the next week
+  //guard clause for if both not a weekend, on the same week, and not into the next week
   if (
     !dateOneWeekend &&
     !dateTwoWeekend &&
@@ -96,31 +96,37 @@ const weekdaysBetween = (dateOne, dateTwo, TZoffset) => {
   )
     return getDifference(dateOne, dateTwo);
 
-  //initailization of two dates used to get difference for first and last week
+  //initailization of two dates used to get difference for first and last week later on
   let dateOneEnd = dateOne;
   let dateTwoStart = dateTwo;
 
-  //if dateOne is on a weekday calculate remainder until the weekend
+  //if dateOne is on a weekday calculate dateOneEnd for saturday 00:00
   if (!dateOneWeekend) {
     dateOneEnd = getEndOfWeekdaysDate(dateOne, TZoffset);
   }
 
-  //if dateTwo is a weekday, calculate remainder from the start of the week
+  //if dateTwo is a weekday, calculate dateTwoStart for monday 00:00
   if (!dateTwoWeekend) {
     dateTwoStart = getStartOfWeekdaysDate(dateTwo, TZoffset);
   }
 
-  //calculate every complete week, not the first and last week
+  //calculate every complete week but not the first and last week
   let completeWeeksWeekdays = convert(
     completeWeeksBetween(getDifference(dateOneEnd, dateTwoStart)),
     "weeks"
   );
 
-  //if not a whole week but more than 5 weekdays we still add 5 days else calculate normally
-  if (daysDifference > 5 && daysDifference < 7 && completeWeeksWeekdays === 0) {
-    completeWeeksWeekdays += 5 * 24 * 60 * 60 * 1000;
-  } else completeWeeksWeekdays *= 5 * 24 * 60 * 60 * 1000;
+  //edge case for sunday to saturday in the next week
+  if (
+    dateOneWeekend &&
+    dateTwoWeekend &&
+    completeWeeksWeekdays === 0 &&
+    daysDifference > 2
+  ) {
+    completeWeeksWeekdays += 5 * 24 * 60 * 60 * 1000; //add 5 weekdays
+  } else completeWeeksWeekdays *= 5 * 24 * 60 * 60 * 1000; //calculate normally
 
+  //calculating total difference using first week, completeweeksbetween and last week
   const weekdaysDiff =
     getDifference(dateOne, dateOneEnd) +
     completeWeeksWeekdays +
