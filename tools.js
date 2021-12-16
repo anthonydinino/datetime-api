@@ -32,7 +32,7 @@ const getTimezoneOffset = (timezone) => {
   else return hours + minutes;
 };
 
-const getEndOfWeekDate = (inputDate, TZoffset) => {
+const getEndOfWeekdaysDate = (inputDate, TZoffset) => {
   //removes offset to accurately check for weekend
   const testDate = new Date(inputDate.getTime() + TZoffset);
 
@@ -82,7 +82,7 @@ const weekdaysBetween = (dateOne, dateTwo, TZoffset) => {
 
   //if dateOne is on a weekday calculate remainder until the weekend
   if (!dateOneWeekend) {
-    dateOneEnd = getEndOfWeekDate(dateOne, TZoffset);
+    dateOneEnd = getEndOfWeekdaysDate(dateOne, TZoffset);
   }
 
   //if dateTwo is a weekday, calculate remainder from the start of the week
