@@ -103,7 +103,7 @@ const weekdaysBetween = (dateOne, dateTwo, TZoffset) => {
   //for every complete week, not first or last, we calculate 5 weekdays in milliseconds
   let completeWeeksWeekdays =
     convert(
-      getDifference(dateOneEnd, dateTwoStart),
+      completeWeeksBetween(getDifference(dateOneEnd, dateTwoStart)),
       "weeks"
     ) *
     (5 * 24 * 60 * 60 * 1000);
