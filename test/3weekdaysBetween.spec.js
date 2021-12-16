@@ -61,13 +61,13 @@ describe("Calculating weekdays between", () => {
   });
   it("Weekday - Weekday over a week", () => {
     let dateOne = new Date("2021-12-08T12:00+10:30"); //wednesday
-    let dateTwo = new Date("2021-12-17T12:00+10:30"); //friday
+    let dateTwo = new Date("2021-12-17T12:00+10:30"); //friday > 1week
     let test = weekdaysBetween(dateOne, dateTwo, TZoffset);
     expect(convert(test, "days")).to.be.eq(7);
   });
   it("Weekend - Weekday over a week", () => {
     let dateOne = new Date("2021-12-11T12:00+10:30"); //saturday
-    let dateTwo = new Date("2021-12-22T12:00+10:30"); //wednesday
+    let dateTwo = new Date("2021-12-22T12:00+10:30"); //wednesday > 1week
     let test = weekdaysBetween(dateOne, dateTwo, TZoffset);
     expect(convert(test, "days")).to.be.eq(7.5);
   });
