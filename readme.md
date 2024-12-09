@@ -2,7 +2,7 @@
 
 ## Live Demo
 
-[Click Here](https://aligent-datetime-api.herokuapp.com/)
+[Click Here](https://datetime-api.vercel.app/)
 
 ## How to run
 
